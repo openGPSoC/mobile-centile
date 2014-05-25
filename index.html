@@ -5,9 +5,11 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="main.css" >
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400, 800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="gh-fork-ribbon.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400, 800' rel='stylesheet' type='text/css'> -->
     <script src="js/jquery-2.1.1.js" ></script>
     <script type="text/javascript" src="zeroclipboard/ZeroClipboard.js"></script>
     <script src="script.js"></script>
@@ -16,6 +18,13 @@
   </head>
   
   <body>
+
+    <div class="github-fork-ribbon-wrapper right">
+      <div class="github-fork-ribbon">
+        <a href="https://github.com/simonwhitaker/github-fork-ribbon-css">PUBLIC BETA<br/>Not for Clinical Use</a>
+      </div>
+    </div>
+
     <div id="content">
       <div class="nav nav-pills">
         	<ul class="pull-left">
@@ -79,7 +88,8 @@
               </tr>
             </table>
             <div id="copy-to-clipboard">
-              <a href="#" id="copy-to-clipboard-button">Copy these centiles to the Clipboard</a>
+              clipboard-friendly formatting
+              <p></p>
             </div>
           </div>
           <div class="col-md-4"></div>
@@ -94,7 +104,7 @@
               <fieldset>
 
               <!-- Form Name -->
-              <legend id="formlegend">calculate a centile</legend>
+              <legend id="formlegend">calculate a centile<br/><small>this application is in Beta testing and is not for clinical use<small></legend>
 
               <!-- Multiple Radios (inline) -->
               <div class="form-group">
@@ -112,14 +122,22 @@
               </div>
 
               <!-- Appended Input-->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="appendedtext">Age (months)</label>
-                <div class="col-md-4">
-                  <div class="input-group">
-                    <input id="patient-age" name="appendedtext" class="form-control" placeholder="age in months" required="" type="text">
-                    <span class="input-group-addon">months</span>
+              <div class="row">
+                <div class="form-group">
+                  <label class="col-md-4 control-label" for="appendedtext">Age (years and months)</label>
+                  <div class="col-md-2">
+                    <div class="input-group">
+                      <input id="patient-age-years" name="appendedtext" class="form-control" placeholder="" required="" type="text">
+                      <span class="input-group-addon">years</span>
+                    </div>
                   </div>
-                  
+
+                  <div class="col-md-2">
+                    <div class="input-group">
+                      <input id="patient-age-months" name="appendedtext" class="form-control" placeholder="" required="" type="text">
+                      <span class="input-group-addon">months</span>
+                    </div>
+                  </div>
                 </div>
               </div>
               <!-- Appended Input-->

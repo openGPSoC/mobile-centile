@@ -1876,38 +1876,31 @@ $( document ).ready(function() {
   $( "#calculate-centile" ).click( function() {
     $("#results").slideUp("fast");
     patientSex = $('form input[name=radios]:checked').val();
-    patientAge = ($( "#patient-age" ).val());
+    patientAgeInMonths = ( (parseInt( $( "#patient-age-years" ).val() * 12) ) + parseInt( $( "#patient-age-months" ).val() ) );
+    //console.log( $( "#patient-age-years" ).val(), $( "#patient-age-months" ).val());
     patientHeight = ($( "#patient-height" ).val());
     patientWeight = $( "#patient-weight" ).val();
-    console.log(patientSex + patientAge + patientHeight + patientWeight); //left in for testing
+    console.log(patientSex + patientAgeInMonths + patientHeight + patientWeight); //left in for testing
 
     //need error checking logic and rejection of silly entries in here
     //age 0 to 23
     //height 0.3m to 2.5m
     //weight 0kg to 250kg
 
-    heightCentile = Math.round(getHeightCentile(patientSex, patientAge, patientHeight))
-    weightCentile = Math.round(getWeightCentile(patientSex, patientAge, patientWeight))
-    patientBMI = patientWeight/Math.pow((patientHeight/100), 2);
-    bmiCentile = Math.round(getBmiCentile(patientSex, patientAge, patientBMI))
+    heightCentile = Math.round(getHeightCentile(patientSex, patientAgeInMonths, patientHeight));
+    weightCentile = Math.round(getWeightCentile(patientSex, patientAgeInMonths, patientWeight));
+    patientBMI = Math.round(patientWeight/Math.pow((patientHeight/100), 2));
+    bmiCentile = Math.round(getBmiCentile(patientSex, patientAgeInMonths, patientBMI));
 
     //enter results into table#results
     $("td#heightcentile").html(heightCentile);
     $("td#weightcentile").html(weightCentile);
     $("td#bmi").html(Math.round(patientBMI)+" kgm<sup>-2</sup>");
-    $("td#bmicentile").html(Math.round(getBmiCentile(patientSex, patientAge, patientBMI)));
-    $("#results").slideDown("slow");
-  });
+    $("td#bmicentile").html(bmiCentile);
 
-  //insert the centile values into the clipboard
-  var client = new ZeroClipboard($('#copy-to-clipboard-button'));
-  client.on( 'load', function(client) {
-    client.on( 'copy', function(client) {
-      client.setText("test");
-      //client.setText("Height Centile: " + heightCentile + ", Weight Centile: " + weightCentile + ", Body Mass Index: " + patientBMI + ", BMI Centile :" + bmiCentile);
-    });
-    client.on( 'complete', function(client, args) {
-      alert("Copied text to clipboard: " + args.text );
-    });
+    //insert the centile values into the clipboard section
+    //I tried using zeroclipboard a la GitHub to make this copy into clipboard using button but couldn't get it to work
+    $("#copy-to-clipboard p").html("Height Centile: " + heightCentile + ", Weight Centile: " + weightCentile + ", Body Mass Index: " + patientBMI + ", BMI Centile :" + bmiCentile);
+    $("#results").slideDown("slow");
   });
 });
